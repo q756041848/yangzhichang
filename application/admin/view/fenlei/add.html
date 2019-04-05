@@ -1,0 +1,57 @@
+{include file="common/header"}
+  <body>
+
+    <div class="x-body">
+        <form class="layui-form" method="post">
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>分类名称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="cat_name" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>所属父级
+              </label>
+              <div class="layui-input-inline">
+                  <select id="shipping" name="parent_id" class="valid">
+                      {foreach name="$lis" id="val"}
+                         <option {if condition="$val.cat_id eq $pid['parent_id']"} selected {/if} value="{$val.cat_id}">{$val.cat_name}</option>
+                                {foreach name="$val.list" id="szhi"}
+                                    <option {if condition="$szhi.cat_id eq $id"} selected {/if} value="{$szhi.cat_id}">&nbsp;&nbsp;&nbsp;&nbsp;--{$szhi.cat_name}</option>
+                                {/foreach}
+                      {/foreach}
+                  </select>
+              </div>
+          </div>
+
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  增加
+              </button>
+          </div>
+      </form>
+    </div>
+    <script>
+          //监听提交
+          form.on('submit(add)', function(data){
+            console.log(data.field);
+             $.ajax({
+                 url:"{:url('Fl/add')}",
+                 type:'post',
+                 data:data.field,
+                 success:function (res){
+                     layer.close(layer.index);
+                     window.parent.location.reload();
+                 }
+             });
+          });
+    </script>
+  </body>
+</html>

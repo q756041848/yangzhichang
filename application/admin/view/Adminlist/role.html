@@ -1,0 +1,179 @@
+{include file="common/header"}
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>分类</cite></a>
+      </span>
+  <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+    <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+  <div class="layui-row">
+    <form id="form" class="layui-form layui-col-md12 x-so layui-form-pane" method="post">
+      <input  class="layui-input" placeholder="分类名" id="flm" name="name">
+      <input type="hidden" name="pid" value="0">
+      <input type="hidden" name="status" value="1">
+      <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick="cli()"><i class="layui-icon"></i>增加</button>
+    </form>
+  </div>
+  <blockquote class="layui-elem-quote">每个tr 上有两个属性 cate-id='1' 当前分类id fid='0' 父级id ,顶级分类为 0，有子分类的前面加收缩图标<i class="layui-icon x-show" status='true'>&#xe623;</i></blockquote>
+  <xblock>
+    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+    <span class="x-right" style="line-height:40px">共有数据： 条</span>
+  </xblock>
+  <table class="layui-table layui-form">
+    <thead>
+    <tr>
+      <th width="20"><div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div></th>
+      <th width="70">ID</th>
+      <th>分类名</th>
+      <th>状态</th>
+      <th width="300">操作</th>
+    </thead>
+    <tbody class="x-cate">
+
+    {foreach name="$info" id="val"}
+    <tr cate-id='{$val.id}' fid='{$val.pid}' >
+      <td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$val.id}'><i class="layui-icon">&#xe605;</i></div></td>
+      <td>{$val.id}</td>
+      <td><i class="layui-icon x-show" status='true'>&#xe623;</i>{$val.name}</td>
+      <td>
+        <!--layui-form-onswitch//开启class样式-->
+        <div class="layui-unselect layui-form-switch {$val.status?'layui-form-onswitch':''}"  lay-skin="_switch" onclick="status(this,{$val.status},{$val.id})"><em>{$val.status?'开启':'关闭'}</em><i></i></div>
+      </td>
+      <td>
+        <button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','roleupd?id={$val.id}',600,500)"><i class="layui-icon">&#xe642;</i>编辑</button>
+        <button class="layui-btn layui-btn-warm layui-btn-xs"  onclick="x_admin_show('添加','roleadd?id={$val.id}',600,500)"><i class="layui-icon">&#xe642;</i>添加子栏目</button>
+        <button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del(this,{$val.id})" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+      </td>
+    </tr>
+    {foreach name="$val['二级']" id="b"}
+    <tr cate-id='{$b.id}' fid='{$b.pid}' >
+      <td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$val.id}'><i class="layui-icon">&#xe605;</i></div></td>
+      <td>{$b.id}</td>
+      <td><i class="layui-icon x-show" status='true'>&#xe623;</i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├{$b.name}</td>
+      <td>
+        <!--layui-form-onswitch//开启class样式-->
+        <div class="layui-unselect layui-form-switch {$b.status?'layui-form-onswitch':''}"  lay-skin="_switch" onclick="status(this,{$b.status},{$b.id})"><em>{$b.status?'开启':'关闭'}</em><i></i></div>
+      </td>
+      <td>
+        <button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','roleupd?id={$b.id}',600,500)"><i class="layui-icon">&#xe642;</i>编辑</button>
+        <!--<button class="layui-btn layui-btn-warm layui-btn-xs"  onclick="x_admin_show('添加','roleadd?id={$b.id}',600,500)"><i class="layui-icon">&#xe642;</i>添加子栏目</button>-->
+        <button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del(this,{$b.id})" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+      </td>
+    </tr>
+    <!--{foreach name="$b['三级']" id="c"}-->
+    <!--<tr cate-id='{$c.id}' fid='{$c.pid}' >-->
+      <!--<td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$val.id}'><i class="layui-icon">&#xe605;</i></div></td>-->
+      <!--<td>{$c.id}</td>-->
+      <!--<td><i class="layui-icon x-show" status='true'>&#xe623;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├{$c.name}</td>-->
+      <!--<td>-->
+        <!--&lt;!&ndash;layui-form-onswitch//开启class样式&ndash;&gt;-->
+        <!--<div class="layui-unselect layui-form-switch {$c.status?'layui-form-onswitch':''}"  lay-skin="_switch" onclick="status(this,{$c.status},{$c.id})"><em>{$c.status?'开启':'关闭'}</em><i></i></div>-->
+      <!--</td>-->
+      <!--<td>-->
+        <!--<button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','roleupd?id={$c.id}',600,500)"><i class="layui-icon">&#xe642;</i>编辑</button>-->
+        <!--<button class="layui-btn layui-btn-warm layui-btn-xs"  onclick="x_admin_show('添加','roleadd?id={$c.id}',600,500)"><i class="layui-icon">&#xe642;</i>添加子栏目</button>-->
+        <!--<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,{$c.id})" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--{/foreach}-->
+    {/foreach}
+    {/foreach}
+    </tbody>
+  </table>
+</div>
+<script>
+    /*用户-停用*/
+    function status(obj,status,id){           //传了三个形参 1.html元素本身 2.状态id 3.主键id
+        var btn = $(obj).find('em').html();   //获取按钮样式内html内容
+        var btn = btn=='开启'?'关闭':'开启';  //改变html内容
+        var status = status==1?'0':'1';      //改变状态id
+        layer.confirm('确认要'+btn+'吗？',function(index){
+            if($(obj).find('em').html()=='开启'){     //判断是按钮样式内html内容是否是开启。之后就很简单了
+                //发异步把用户状态进行更改
+                $.ajax({
+                    url:"rolestatus",
+                    type:'get',
+                    data:{status:status,id:id},
+                    success:function (res){
+                        $(obj).find('em').html('关闭');
+                        $(obj).parents("tr").find(".layui-unselect").removeClass('layui-form-onswitch');
+                        layer.msg('已关闭!',{icon: 5,time:1000});
+                    }
+                });
+            }else{
+                //发异步把用户状态进行更改
+                $.ajax({
+                    url:"rolestatus",
+                    type:'get',
+                    data:{status:status,id:id},
+                    success:function (res){
+                        $(obj).find('em').html('开启');
+                        $(obj).parents("tr").find(".layui-unselect").addClass('layui-form-onswitch');
+                        layer.msg('已开启!',{icon: 6,time:1000});
+                    }
+                });
+            }
+        });
+    }
+
+
+
+
+
+    /*用户-批删除*/
+    function delAll (argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            $.ajax({
+                url:"{:url('roledel')}",
+                type:'post',
+                data:{id:data.toString()},
+                success:function (res){
+                    layer.msg('删除成功', {icon: 1});
+                    $(".layui-form-checked").not('.header').parents('tr').remove();
+                }
+            });
+        });
+    }
+
+    /*用户-删除*/
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"{:url('roledel')}",
+                type:'post',
+                data:{id:id},
+                success:function (res){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }
+            });
+        });
+    }
+
+    //添加大栏目
+    function cli(){
+        var obj = $('#form').serialize();
+        $.ajax({
+            url:"{:url('Adminlist/adds')}",
+            type:'post',
+            data:obj,
+            success:function (res){
+                if(res=='1'){
+                    alert("添加成功");
+                    layer.msg('添加成功');
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+
+</html>

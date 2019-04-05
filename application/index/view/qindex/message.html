@@ -1,0 +1,106 @@
+﻿{include file="common/header"}
+<body>
+﻿<header class="hd">
+    <div class="cml-g">
+        <div class="hd-left">
+            <div class="hd-logo">
+                <a href="#">
+                    <img src="images/logo.png" />
+                </a>
+            </div>
+            <div class="hd-company">
+                <strong>某某化肥有限公司</strong>
+                <span>www.cssmoban.com</span>
+            </div>
+        </div>
+        <div class="hd-right">
+            <a href="#">ENGLISH</a><i class="font">&#xe62b;</i><a href="#">中文</a>
+        </div>
+    </div>
+</header>
+
+<div class="hd-nav">
+    <button class="am-show-sm-only am-collapsed" data-am-collapse="{target: '.hd-navul'}">&#xe68b;</button>
+    <nav>
+        <ul class="hd-navul am-collapse" style="height: 0px;">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="new_list.html">新闻资讯</a></li>
+            <li><a href="product_list.html">产品展示</a></li>
+            <li><a href="join.html">加入中正</a>
+            <li class="on"><a href="contact.html">联系我们</a>
+        </ul>
+    </nav>
+</div>
+
+
+
+<div class="am-cf"></div>
+<div class="cm-mian">
+    <div class="cml-g">
+        <div class="am-u-sm-3 am-u-md-3 am-u-lg-3">
+            <div class="cm-type">
+                <ul>
+                    <li><a href="{:url('contact')}">联系我们</a></li>
+                    <li  class="on"><a href="#">在线留言</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="am-u-sm-9 am-u-md-9 am-u-lg-9">
+            <div class="cm-article">
+                <div class="cm-title">
+                    <div class="cm-title-nav">当前位置：<span><a href="index.html">网站首页</a></span>><span><a href="#">在线留言</a></span></div>
+                </div>
+                <div class="cm-content">
+                    <div class="message">
+                        <form id="form" class="am-form">
+                            <fieldset>
+                                <div class="am-form-group">
+                                    <label for="doc-vld-title">标题：</label>
+                                    <input type="text" name="title" id="doc-vld-title" minlength="6" placeholder="输入标题" class="am-form-field" required />
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name">姓名：</label>
+                                    <input type="text" name="name" id="doc-vld-name" minlength="3" placeholder="输入姓名" class="am-form-field" required />
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="doc-vld-tel">电话：</label>
+                                    <input type="text" name="tel" id="doc-vld-tel" minlength="3" placeholder="输入电话" class="am-form-field" required />
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="doc-vld-email">邮箱：</label>
+                                    <input type="text" name="email" id="doc-vld-email" minlength="3" placeholder="输入邮箱" class="am-form-field" required />
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="doc-vld-ta-1">留言：</label>
+                                    <textarea name="text" id="doc-vld-ta-1" minlength="10" maxlength="100" required></textarea>
+                                </div>
+
+                                <button class="am-btn am-btn-secondary" onclick="cli()" type="submit">提交</button>
+                            </fieldset>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+﻿ {include file="common/footer"}
+</body>
+<script type="text/javascript">
+    function cli(){
+        var form = $('#form').serializeArray();
+        $.ajax({
+            url:"message",
+            type:'post',
+            data:form,
+            success:function (res){
+                alert("留言成功");
+                // layer.msg("留言成功");
+            }
+        });
+    }
+</script>
+</html>

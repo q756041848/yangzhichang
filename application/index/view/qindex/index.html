@@ -1,0 +1,297 @@
+﻿{include file="common/header"}
+<body>
+<header class="hd">
+    <div class="cml-g">
+        <div class="hd-left">
+            <div class="hd-logo">
+            </div>
+            <div class="hd-company">
+                <strong>某某化肥有限公司</strong>
+                <span>www.cssmoban.com</span>
+            </div>
+        </div>
+        <div class="hd-right">
+            <a href="#" onclick="add()">收藏</a>
+            <i class="font">&#xe62b;</i>
+            <a href="{:url('admin/Admin/login')}">登陆</a>
+            <i class="font">&#xe62b;</i>
+            <a href="#">ENGLISH</a>
+            <i class="font">&#xe62b;</i>
+            <a href="#">中文</a>
+        </div>
+    </div>
+</header>
+
+<div class="hd-nav">
+    <button class="am-show-sm-only am-collapsed" data-am-collapse="{target:'.hd-navul'}">&#xe68b;</button>
+    <nav>
+        <ul class="hd-navul am-collapse" style="height: 0px;">
+            <li class="on"><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="new_list.html">新闻资讯</a></li>
+            <li><a href="product_list.html">产品展示</a></li>
+            <li><a href="join.html">加入中正</a>
+            <li><a href="contact.html">联系我们</a>
+        </ul>
+    </nav>
+</div>
+
+
+    <div class="am-cf"></div>
+    <div class="am-slider am-slider-default" data-am-flexslider="{playAfterPaused: 8000}">
+        <ul class="am-slides">
+            {foreach name="$banner" id="li"}
+                <li><img src="/tp/public/uploads/{$li['original_img']}"/></li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="index-search">
+        <div class="index-search-g">
+            <div class="f-l">
+                <span>
+                    热门关键词：
+                    <a href="#">复合肥</a>
+                    <a href="#">有机肥</a>
+                    <a href="#">水溶肥</a>
+                    <a href="#">页面肥</a>
+                    <a href="#">肥料加盟</a>
+                </span>
+            </div>
+            <div class="f-r">
+                <input type="text" id="text" placeholder="请输入关键词搜索" />
+                <button class="btn"><i class="font">&#xe70b;</i>搜索</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="index-new">
+        <div class="cml-g">
+
+
+            <div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+                <div class="index-new-left">
+                    <div class="cm-title">
+                        <em>企业介绍</em><a href="#">MORE<i class="font">&#xe61b;</i></a>
+                    </div>
+                    <div class="index-new-about">
+                        <h1>
+                            {$qiyejieshao['content']}
+                        </h1>
+                        <ul>
+                            <li>
+                                <a href="about?id=9">
+                                    <em><i class="font">&#xe613;</i></em>
+                                    <span>企业文化</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="about?id=10">
+                                    <em><i class="font">&#xe623;</i></em>
+                                    <span>管理团队</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="about?id=11">
+                                    <em><i class="font">&#xe6ea;</i></em>
+                                    <span>组织架构</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="about?id=12">
+                                    <em><i class="font">&#xe63c;</i></em>
+                                    <span>荣誉资质</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
+            <div class="am-u-sm-12 am-u-md-8 am-u-lg-8">
+                <div class="index-new-right">
+                    <div class="cm-title">
+                        <em>关于我们</em><a href="#">MORE<i class="font">&#xe61b;</i></a>
+                    </div>
+                    <div class="index-new-tab">
+                        <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="doc-tab-demo-1">
+
+                            <ul class="am-tabs-nav am-nav am-nav-tabs">
+                                {foreach name="$index" id="index"}
+                                    <li><a href="index?id={$index.cat_id}">{$index.cat_name}</a></li>
+                                {/foreach}
+                            </ul>
+                            <div class="am-tabs-bd">
+
+                                <div class="am-tab-panel am-active">
+                                    <div class="index-new-tab-main">
+                                        <div class="am-u-sm-4 am-u-md-4 am-u-lg-5">
+                                            <div class="index-new-tab-img">
+                                                <a href="#"><img src="images/tab.jpg" /></a>
+                                            </div>
+                                        </div>
+                                        <div class="am-u-sm-4 am-u-md-4 am-u-lg-7">
+                                            <div class="index-new-tab-list">
+                                                <ul>
+                                                    {foreach name="$con" id="con"}
+                                                        <li><a href="index.html?con={$con.article_id}">
+                                                            <div class="am-u-sm-8 am-u-md-8 am-u-lg-8"><strong class="f-toe">{$con.title}</strong></div>
+                                                            <div class="am-u-sm-4 am-u-md-4 am-u-lg-4  "><span>{$con.add_time}</span></div></a>
+                                                        </li>
+                                                    {/foreach}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="am-tab-panel">-->
+                                    <!--<div class="index-new-tab-main">-->
+                                        <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-5">-->
+                                            <!--<div class="index-new-tab-img">-->
+                                                <!--<a href="#"><img src="images/tab.jpg" /></a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-7">-->
+                                            <!--<div class="index-new-tab-list">-->
+                                                <!--<ul>-->
+                                                    <!--<li><a href="#"><div class="am-u-sm-8 am-u-md-8 am-u-lg-8"><strong class="f-toe">专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下</strong></div><div class="am-u-sm-4 am-u-md-4 am-u-lg-4  "><span>［2017-05-01］</span></div></a></li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="am-tab-panel">-->
+                                    <!--<div class="index-new-tab-main">-->
+                                        <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-5">-->
+                                            <!--<div class="index-new-tab-img">-->
+                                                <!--<a href="#"><img src="images/tab.jpg" /></a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-7">-->
+                                            <!--<div class="index-new-tab-list">-->
+                                                <!--<ul>-->
+                                                    <!--<li><a href="#"><div class="am-u-sm-8 am-u-md-8 am-u-lg-8"><strong class="f-toe">专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下</strong></div><div class="am-u-sm-4 am-u-md-4 am-u-lg-4  "><span>［2017-05-01］</span></div></a></li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="am-tab-panel">-->
+                                    <!--<div class="index-new-tab-main">-->
+                                        <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-5">-->
+                                            <!--<div class="index-new-tab-img">-->
+                                                <!--<a href="#"><img src="images/tab.jpg" /></a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="am-u-sm-4 am-u-md-4 am-u-lg-7">-->
+                                            <!--<div class="index-new-tab-list">-->
+                                                <!--<ul>-->
+                                                    <!--<li><a href="#"><div class="am-u-sm-8 am-u-md-8 am-u-lg-8"><strong class="f-toe">专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下专家预言：有机肥将瓜分化肥半个天下</strong></div><div class="am-u-sm-4 am-u-md-4 am-u-lg-4  "><span>［2017-05-01］</span></div></a></li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="index-honor">
+        <div class="cml-g">
+            <div class="cm-title">
+                <em>荣誉资质</em><a href="#">MORE<i class="font">&#xe61b;</i></a>
+            </div>
+            <div class="index-honor-silder">
+                <div class="am-slider am-slider-default am-slider-carousel"
+                     data-am-flexslider="{itemWidth: 200, itemMargin: 5, slideshow: false}">
+                    <ul class="am-slides">
+                        {foreach name="$chanping" id="chanping"}
+                            <li><a href="about?id=12"><img src="/tp/public/uploads/{$chanping['original_img']}"/><span class="f-toe">{$chanping['name']}</span></a></li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="index-product">
+        <div class="cml-g">
+            <div class="cm-title">
+                <em>产品中心</em><a href="#">MORE<i class="font">&#xe61b;</i></a>
+            </div>
+            <div class="index-product-silder">
+                <div class="am-slider am-slider-default am-slider-carousel"
+                     data-am-flexslider="{itemWidth: 200, itemMargin: 5, slideshow: false}">
+                    <ul class="am-slides">
+                        {foreach name="$zizhi" id="zizhi"}
+                            <li><a href="product_info?id={$zizhi['id']}"><img src="/tp/public/uploads/{$zizhi['original_img']}"/><span class="f-toe">{$zizhi['name']}</span></a></li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{include file="common/footer"}
+</body>
+<script>
+
+    // <!--收藏-->
+    function add(){
+        $(document).ready(function(){
+                var ctrl=(navigator.userAgent.toLowerCase()).indexOf('mac')!=-1?'Command/Cmd': 'CTRL';
+                if(document.all){
+                    window.external.addFavorite('http://www.test.com', '网站名称');
+                }else if(window.sidebar){
+                    window.sidebar.addPanel('网站名称', 'http://www.test.com', "");
+                } else{
+                    $.ajax({
+                        url:"index",
+                        type:'post',
+                        data:{flg:'1'},
+                        success:function (res){
+                            if(res.code=='1'){
+                                alert('您已收藏');
+                            }else{
+                                alert('您可以通过快捷键' + ctrl + ' + D 加入到收藏夹');
+                            }
+                        }
+                    });
+                }
+        })
+    }
+
+
+    //搜索
+    // $('.btn').click(function () {
+    //     var obj2 = $('#text').serializeArray();
+    //             ajax({
+    //                url:'index',
+    //                type:'post',
+    //                data:obj2,
+    //                success:function (res){
+    //                    alert("成功");
+    //                }
+    //            });
+    // });
+
+
+    // function cli(val) {
+    //     alert(val);
+    //    ajax({
+    //        url:'index',
+    //        type:'post',
+    //        data:{id:val},
+    //        success:function (res){
+    //            alert("成功");
+    //        }
+    //    });
+    // }
+</script>
+</html>

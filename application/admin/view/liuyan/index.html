@@ -1,0 +1,119 @@
+{include file="common/header"}
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" id="sel" method="post">
+          <input class="layui-input" placeholder="开始日" name="start" id="start">
+          <input class="layui-input" placeholder="截止日" name="end" id="end">
+          <input type="text" name="text"  placeholder="搜索文字标题" autocomplete="off" class="layui-input">
+          <button class="layui-btn" onclick="sel()"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+      	<span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>标题</th>
+            <th>留言人</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th>内容</th>
+            <th>ip</th>
+            <th>时间</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+          {foreach name="$info" id="li"}
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$li.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$li.id}</td>
+            <td>{$li.title}</td>
+            <td>{$li.name}</td>
+            <td>{$li.tel}</td>
+            <td>{$li.email}</td>
+            <td>{$li.text}</td>
+            <td>{$li.ip}</td>
+            <td>{$li.times }</td>
+            <td>
+            	<a href="#" onclick="member_del({$li.id})">删除</a>
+            	<a href="#" onclick="member_sel({$li.id})">阅读</a>
+            	<a href="#" onclick="member_des({$li.id})">禁止此id访问</a>
+            </td>       
+          <tr>
+          		{/foreach}
+          </tr>
+        </tbody>
+      </table>
+      <div class="page">
+        <td colspan="9" style="text-align: center">{$page}</td>
+      </div>
+    </div>
+    <script>
+        /*用户-搜索*/
+        function sel() {
+            var form = $('#sel').serializeArray();
+            $.ajax({
+                url:"{:url('index')}",
+                type:'post',
+                data:form,
+                success:function (res){
+                    console.log(res);
+                }
+            });
+
+        }
+
+      //批量删除
+      function delAll (argument) {
+          var data1 = tableCheck.getData();
+          layer.confirm('确认要删除吗？'+data1,function(index){
+              $.ajax({
+                  url:"{:url('del')}",
+                  type:'post',
+                  data:{id:data1.toString()},
+                  success:function (res){
+                      layer.msg('删除成功', {icon: 1});
+                      $(".layui-form-checked").not('.header').parents('tr').remove();
+                  }
+              })
+          });
+      }
+     //删除
+		function member_del(val){
+		$.ajax({
+		 url:"del",		
+		 type:'post',
+		 data:{id:val},		
+		 success:function (res){
+		     if(res.code == "1"){
+                 layer.msg('删除成功', {icon: 1});
+                 $(".layui-form-checked").not('.header').parents('tr').remove();
+             }
+		  }
+		});
+		};
+     //阅读
+     //禁止ip
+    </script>
+  </body>
+</html>

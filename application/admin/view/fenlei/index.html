@@ -1,0 +1,140 @@
+{include file="common/header"}
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>分类</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form id="form" class="layui-form layui-col-md12 x-so layui-form-pane" method="post">
+          <input  class="layui-input" placeholder="分类名" id="flm" name="cat_name">
+          <input type="hidden" name="parent_id" value="0">
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick="cli()"><i class="layui-icon"></i>增加</button>
+        </form>
+      </div>
+      <blockquote class="layui-elem-quote">每个tr 上有两个属性 cate-id='1' 当前分类id fid='0' 父级id ,顶级分类为 0，有子分类的前面加收缩图标<i class="layui-icon x-show" status='true'>&#xe623;</i></blockquote>
+      <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+      </xblock>
+      <table class="layui-table layui-form">
+          <thead>
+            <tr>
+              <th width="20"><div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div></th>
+              <th width="70">ID</th>
+              <th>分类名</th>
+              <th width="300">操作</th>
+          </thead>
+        <tbody class="x-cate">
+        {foreach name="$info" id="val"}
+              <tr cate-id='{$val.cat_id}' fid='{$val.parent_id}' >
+                <td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$val.cat_id}'><i class="layui-icon">&#xe605;</i></div></td>
+                <td>{$val.cat_id}</td>
+                <td><i class="layui-icon x-show" status='true'>&#xe623;</i>{$val.cat_name}</td>
+                <td>
+                  <button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','upd?id={$val.cat_id}',500,300)"><i class="layui-icon">&#xe642;</i>编辑</button>
+                  <button class="layui-btn layui-btn-warm layui-btn-xs"  onclick="x_admin_show('添加','add?id={$val.cat_id}',500,300)"><i class="layui-icon">&#xe642;</i>添加子栏目</button>
+                  <button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="del(this,'{$val.cat_id}')" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+                </td>
+                </tr>
+                    {foreach name="$val['二级']" id="b"}
+                    <tr cate-id='{$b.cat_id}' fid='{$b.parent_id}' >
+                      <td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$val.cat_id}'><i class="layui-icon">&#xe605;</i></div></td>
+                      <td>{$b.cat_id}</td>
+                      <td><i class="layui-icon x-show" status='true'>&#xe623;</i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├{$b.cat_name}</td>
+                      <td>
+                        <button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','upd?id={$b.cat_id}',500,300)"><i class="layui-icon">&#xe642;</i>编辑</button>
+                        <button class="layui-btn layui-btn-warm layui-btn-xs"  onclick="x_admin_show('添加','add?id={$b.cat_id}',500,300)"><i class="layui-icon">&#xe642;</i>添加子栏目</button>
+                        <button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="del(this,'{$b.cat_id}')" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+                      </td>
+                      </tr>
+                              {foreach name="$b['三级']" id="c"}
+                              <tr cate-id='{$c.cat_id}' fid='{$c.parent_id}' >
+                                <td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$val.cat_id}'><i class="layui-icon">&#xe605;</i></div></td>
+                                <td>{$c.cat_id}</td>
+                                <td><i class="layui-icon x-show" status='true'>&#xe623;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├{$c.cat_name}</td>
+                                <td>
+                                  <button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','upd?id={$c.cat_id}',500,300)"><i class="layui-icon">&#xe642;</i>编辑</button>
+                                  <button class="layui-btn layui-btn-warm layui-btn-xs"  onclick="x_admin_show('添加','add?id={$c.cat_id}',500,300)"><i class="layui-icon">&#xe642;</i>添加子栏目</button>
+                                  <button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="del(this,'{$c.cat_id}')" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+                                </td>
+                                </tr>
+                              {/foreach}
+                    {/foreach}
+          {/foreach}
+        </tbody>
+      </table>
+    </div>
+    <script>
+
+        function del(obj,id){
+                layer.confirm('确认要删除吗？',function(index){
+                    //发异步删除数据
+                    $.ajax({
+                        url:"{:url('Fenlei/del')}",
+                        type:'post',
+                        data:{cat_id:id,flg:1},
+                        success:function (res){
+                            layer.msg(res.code);
+                            $(obj).parents("tr").remove();
+                        }
+                     });
+                });
+        }
+
+
+// function del(obj,id){
+//           layer.confirm('确认要删除吗？',function(index){
+//               //发异步删除数据
+//                 $.ajax({
+//                  url:"{:url('Fl/del')}",
+//                  type:'post',
+//                  data:{cat_id:id,flg:1},
+//                  success:function (res){
+// 	                 	if(res.code=='2'){
+// 	                 		layer.confirm('栏目有多个子栏目是否要删除？',function(index){
+// 														$.ajax({
+// 						                 url:"{:url('Fl/del')}",
+// 						                 type:'post',
+// 						                 data:{cat_id:id,flg:2},
+// 						                  success:function (res){
+//               										layer.msg('已删除!',{icon:1,time:1000});
+// 						                  }
+// 						               })
+// 	                 		});
+//                  	}else{
+//                  		$(obj).parents("tr").remove();
+//               			layer.msg('已删除!',{icon:1,time:1000});
+//                  	}
+//                 }
+//              })
+//           });
+//       }
+
+//添加大栏目
+function cli(){
+    var obj = $('#form').serialize();
+    $.ajax({
+        url:"{:url('Fenlei/adds')}",
+        type:'post',
+        data:obj,
+        success:function (res){
+            if(res=='1'){
+                alert("添加成功");
+                layer.msg('添加成功');
+            }
+        }
+    });
+}
+
+    </script>
+  </body>
+
+</html>

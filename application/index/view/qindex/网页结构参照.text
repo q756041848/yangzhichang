@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<about>关于我们</about>
+<contact>联系我们</contact>
+<index>主页</index>
+<join>加入我们</join>
+<message>在线留言</message>
+<new_info></new_info>
+<new_list>新闻资讯</new_list>
+<product_info></product_info>
+<product_list>产品展示</product_list>
+</body>
+</html>

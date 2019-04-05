@@ -1,0 +1,64 @@
+﻿{include file="common/header"}
+<body>
+    ﻿<header class="hd">
+    <div class="cml-g">
+        <div class="hd-left">
+            <div class="hd-company">
+                <strong>某某化肥有限公司</strong>
+                <span>www.cssmoban.com</span>
+            </div>   
+        </div>
+        <div class="hd-right">
+            <a href="#">ENGLISH</a><i class="font">&#xe62b;</i><a href="#">中文</a>
+        </div>
+    </div>
+</header>
+
+<div class="hd-nav">
+    <button class="am-show-sm-only am-collapsed" data-am-collapse="{target: '.hd-navul'}">&#xe68b;</button>
+    <nav>
+        <ul class="hd-navul am-collapse" style="height: 0px;">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li class="on"><a href="new_list.html">新闻资讯</a></li>
+            <li><a href="product_list.html">产品展示</a></li>
+            <li><a href="join.html">加入中正</a>
+            <li><a href="contact.html">联系我们</a>
+        </ul>
+    </nav>
+</div>
+
+
+    <div class="am-cf"></div>
+    <div class="cm-mian">
+        <div class="cml-g">
+            <div class="am-u-sm-3 am-u-md-3 am-u-lg-3">
+                <div class="cm-type">
+                    <ul>
+                        {foreach name="$list" id="li"}
+                        <li {if condition="$id eq $li.cat_id"} class="on" {/if} ><a href="new_list?id={$li.cat_id}" >{$li.cat_name}</a></li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+            <div class="am-u-sm-9 am-u-md-9 am-u-lg-9">
+                   <div class="cm-article">
+                       <div class="cm-title">
+                           <div class="cm-title-nav">当前位置：<span><a href="#">网站首页</a></span>><span><a href="#">新闻资讯</a></span>><span>公司动态</span></div>
+                       </div>
+                       <div class="cm-content">
+                           <div class="cm-content-title">
+                               {$con['title']}
+                           </div>
+                           {$con['content']}
+                           <p style="text-align: right"><a href="{:url('new_info',['cat_id'=>1])}">上一页:</a>  ||
+                               <a href="">下一页:</a></p>
+
+                       </div>
+                   </div>
+            </div>
+        </div>
+    </div>
+    {include file="common/footer"}
+</body>
+</html>

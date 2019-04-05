@@ -1,0 +1,22 @@
+admin-list管理员页
+admin-edit管理员修改
+admin-add管理员添加
+
+
+admin-role角色管理页
+role-add角色添加修改
+
+admin-rule权限管理页
+admin-cate权限分类页
+
+
+表结构
+
+角色表             think_role
+status  地位身份
+--
+角色用户关联表      think_role_user
+--
+节点表             think_node
+--
+权限表             ass
